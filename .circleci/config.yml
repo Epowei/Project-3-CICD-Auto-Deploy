@@ -177,19 +177,18 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: python:3.10-alpine3.16
+      - image: python:3.7-alpine3.16
     steps:
       - checkout
       - add_ssh_keys:
-         fingerprints: ["2a:11:d1:7c:33:a1:30:ba:6a:59:af:b7:2a:b8:0f:a7"]
-      
+          fingerprints:
+            - '2a:11:d1:7c:33:a1:30:ba:6a:59:af:b7:2a:b8:0f:a7'
       - run:
           name: Install dependencies
           command: |
-            apk add --update --no-cache ansible tar gzip aws-cli openssh
-      - attach workspace:
+            apk add --update --no-cache tar gzip ansible aws-cli
+      - attach_workspace:
           at: ~/
-          
       - run:
           name: Configure server
           command: |
